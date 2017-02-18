@@ -1,0 +1,17 @@
+本项目是依据ssm开发的简单秒杀系统，慕课网网只有视频，没有源码，自己动手实现了一遍
+项目中遇到的问题
+  1.mysql的版本问题，mysql5.5和mysql5.6对timestamp的处理发生了些细微的变化，在使用5.5版本的时候一定要注意，如果一张表中有多个字段是timestamp类型，
+    并且其中有一个字段指定了DEFAULT CURRENT_TIMESTAMP，其他字段要设置默认值。当然5.6版本就不需要注意这些问题
+  2.在开发项目中，依据以往的经验，最好以模块为单位进行项目开发（maven不仅仅用来管理jar包，它是管理项目的一个强大工具），一开始我也是这么做的，可是后来
+    作死，把技术模块的坐标给改掉了，导致怎么改都报错，只好重新建立了一个maven项目
+  3.我是用eclipse进行开发的，开发之前最好把spring，mybatis的相关插件安装好，工欲善其事，必先利其器嘛，要不然你会被spring的配置文件搞得痛不欲死。
+  4.在配置spring配置文件时，使用spring的命名空间标签配置，一直报一些莫名其妙的错误，改成如下形式就好：
+  <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:jdbc.properties"></property>
+	</bean>
+  5.关于web.xml的配置，我不建议只配置一个spring容易，应该配置一个父容器，一个子容器，为了项目开发以后service组件，dao组件能够得到更好的重用，具体怎么
+    配置以及spring容器是怎么启动的就不一一贴出来了。
+  6.关于servlet的版本问题，默认的maven webapp的版本是2.3，最好改到3.0或者3.1。关于3.1版本直接修改web.xml的头即可。如若改成3.0的版本，还要修改
+  org.eclipse.wst.common.project.facet.core这个文件，将其中<installed facet="jst.web" version="2.3"/>改为3.0
+  7.因为当时作死的把maven项目坐标改掉之后，整个项目到跑不起来了，所以笔者只好手动的重新复制粘贴了一遍（智障233），关于单元测试的模块并没有录入，用
+  spring-test和junit整合测试一下就好了。
